@@ -1,0 +1,843 @@
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="Beautiful PDF gallery with dark mode and advanced features">
+  <title>Xrypthon - By Absent minds</title>
+ <link rel="icon" type="image/x-icon" href="xrypthon_logo.ico">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <style>
+    :root {
+      --primary: #4f46e5;
+      --primary-hover: #3730a3;
+      --secondary: #f43f5e;
+      --accent: #10b981;
+      --text-primary: #1e293b;
+      --text-secondary: #64748b;
+      --bg-primary: #ffffff;
+      --bg-secondary: #f8fafc;
+      --card-bg: rgba(255, 255, 255, 0.8);
+      --card-border: rgba(255, 255, 255, 0.3);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.05);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.1), 0 10px 10px -5px rgba(0, 0, 0, 0.04);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+      --rounded-sm: 0.125rem;
+      --rounded: 0.25rem;
+      --rounded-md: 0.375rem;
+      --rounded-lg: 0.5rem;
+      --rounded-xl: 0.75rem;
+      --rounded-2xl: 1rem;
+      --rounded-3xl: 1.5rem;
+      --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+      --gradient: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    }
+
+    .dark {
+      --primary: #818cf8;
+      --primary-hover: #6366f1;
+      --secondary: #fb7185;
+      --accent: #34d399;
+      --text-primary: #f8fafc;
+      --text-secondary: #94a3b8;
+      --bg-primary: #0f172a;
+      --bg-secondary: #1e293b;
+      --card-bg: rgba(30, 41, 59, 0.6);
+      --card-border: rgba(255, 255, 255, 0.1);
+      --shadow-sm: 0 1px 2px 0 rgba(0, 0, 0, 0.25);
+      --shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.25), 0 2px 4px -1px rgba(0, 0, 0, 0.2);
+      --shadow-md: 0 10px 15px -3px rgba(0, 0, 0, 0.25), 0 4px 6px -2px rgba(0, 0, 0, 0.2);
+      --shadow-lg: 0 20px 25px -5px rgba(0, 0, 0, 0.25), 0 10px 10px -5px rgba(0, 0, 0, 0.2);
+      --shadow-xl: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Inter', sans-serif;
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      min-height: 100vh;
+      transition: var(--transition);
+      line-height: 1.5;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* Header Styles */
+    header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 3rem;
+      padding-bottom: 1.5rem;
+      border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+      animation: fadeInDown 0.6s ease-out;
+    }
+
+    .dark header {
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .header-content {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+    }
+
+    .logo-icon {
+      font-size: 1.75rem;
+      color: var(--primary);
+    }
+
+    h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      background: var(--gradient);
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: -0.025em;
+      cursor: default;
+      text-wrap-style:balance;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 1rem;
+    }
+
+    /* Button Styles */
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 0.75rem 1.5rem;
+      font-size: 0.95rem;
+      font-weight: 500;
+      border-radius: var(--rounded-lg);
+      cursor: pointer;
+      transition: var(--transition);
+      border: none;
+      outline: none;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      background-color: var(--primary);
+      color: white;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-primary:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .btn-secondary {
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+    }
+
+    .btn-secondary:hover {
+      background-color: var(--card-bg);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .btn-icon {
+      padding: 0.75rem;
+      border-radius: 50%;
+    }
+
+    .btn-sm {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    /* Search Bar */
+    .search-container {
+      position: relative;
+      width: 100%;
+      max-width: 400px;
+      margin: 0 auto 2.5rem;
+      animation: fadeIn 0.8s ease-out;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 0.75rem 1.25rem 0.75rem 3rem;
+      border-radius: var(--rounded-xl);
+      border: 1px solid rgba(0, 0, 0, 0.1);
+      background-color: var(--bg-primary);
+      color: var(--text-primary);
+      font-size: 1rem;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .dark .search-input {
+      border-color: rgba(255, 255, 255, 0.1);
+    }
+
+    .search-input:focus {
+      outline: none;
+      border-color: var(--primary);
+      box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 1rem;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-secondary);
+    }
+
+    /* Card Grid */
+    .card-container {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    /* Card Styles */
+    .card {
+      background: var(--card-bg);
+      backdrop-filter: blur(16px) saturate(180%);
+      -webkit-backdrop-filter: blur(16px) saturate(180%);
+      border: 1px solid var(--card-border);
+      border-radius: var(--rounded-2xl);
+      overflow: hidden;
+      box-shadow: var(--shadow);
+      transition: var(--transition);
+      animation: fadeInUp 0.5s ease-out;
+      animation-fill-mode: backwards;
+      cursor: pointer;
+    }
+
+    .card:hover {
+      transform: translateY(-8px);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .card-preview {
+      position: relative;
+      width: 100%;
+      height: 220px;
+      overflow: hidden;
+      border-bottom: 1px solid var(--card-border);
+    }
+
+    .card-preview iframe {
+      width: 100%;
+      height: 100%;
+      border: none;
+    }
+
+    .card-preview::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(to bottom, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.1) 100%);
+      pointer-events: none;
+    }
+
+    .card-badge {
+      position: absolute;
+      top: 1rem;
+      right: 1rem;
+      background-color: var(--secondary);
+      color: white;
+      padding: 0.25rem 0.75rem;
+      border-radius: var(--rounded-xl);
+      font-size: 0.75rem;
+      font-weight: 600;
+      z-index: 1;
+      box-shadow: var(--shadow-sm);
+    }
+
+    .card-content {
+      padding: 1.5rem;
+    }
+
+    .card-title {
+      font-size: 1.25rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .card-meta {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.25rem;
+      font-size: 0.875rem;
+      color: var(--text-secondary);
+    }
+
+    .card-meta-item {
+      display: flex;
+      align-items: center;
+      gap: 0.25rem;
+    }
+
+    .card-description {
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      font-size: 0.9375rem;
+      line-height: 1.6;
+    }
+
+    .card-actions {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .download-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.625rem 1.25rem;
+      background-color: var(--primary);
+      color: white;
+      text-decoration: none;
+      border-radius: var(--rounded-lg);
+      font-size: 0.9375rem;
+      font-weight: 500;
+      transition: var(--transition);
+      box-shadow: var(--shadow-sm);
+    }
+
+    .download-link:hover {
+      background-color: var(--primary-hover);
+      transform: translateY(-2px);
+      box-shadow: var(--shadow);
+    }
+
+    .action-btn {
+      background: none;
+      border: none;
+      color: var(--text-secondary);
+      cursor: pointer;
+      transition: var(--transition);
+      padding: 0.5rem;
+      border-radius: 50%;
+    }
+
+    .action-btn:hover {
+      color: var(--primary);
+      background-color: rgba(79, 70, 229, 0.1);
+    }
+
+    /* Filter Controls */
+    .filter-controls {
+      display: flex;
+      justify-content: center;
+      gap: 1rem;
+      margin-bottom: 2.5rem;
+      flex-wrap: wrap;
+    }
+
+    .filter-btn {
+      padding: 0.5rem 1.25rem;
+      border-radius: var(--rounded-xl);
+      background-color: var(--bg-secondary);
+      color: var(--text-primary);
+      border: none;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.875rem;
+      font-weight: 500;
+    }
+
+    .filter-btn.active {
+      background-color: var(--primary);
+      color: white;
+    }
+
+    .filter-btn:hover:not(.active) {
+      background-color: var(--card-bg);
+    }
+
+    /* Empty State */
+    .empty-state {
+      text-align: center;
+      padding: 4rem 2rem;
+      grid-column: 1 / -1;
+    }
+
+    .empty-icon {
+      font-size: 4rem;
+      color: var(--text-secondary);
+      margin-bottom: 1.5rem;
+      opacity: 0.5;
+    }
+
+    .empty-title {
+      font-size: 1.5rem;
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      color: var(--text-primary);
+    }
+
+    .empty-description {
+      color: var(--text-secondary);
+      max-width: 500px;
+      margin: 0 auto 1.5rem;
+    }
+
+    /* Footer */
+    footer {
+      text-align: center;
+      margin-top: 4rem;
+      padding-top: 2rem;
+      border-top: 1px solid rgba(0, 0, 0, 0.1);
+      color: var(--text-secondary);
+      font-size: 0.875rem;
+    }
+
+    .dark footer {
+      border-top: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .footer-links {
+      display: flex;
+      justify-content: center;
+      gap: 1.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .footer-link {
+      color: var(--text-secondary);
+      text-decoration: none;
+      transition: var(--transition);
+    }
+
+    .footer-link:hover {
+      color: var(--primary);
+    }
+
+    /* Animations */
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes fadeInDown {
+      from {
+        opacity: 0;
+        transform: translateY(-20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    /* Responsive Design */
+    @media (max-width: 1024px) {
+      .card-container {
+        grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+      }
+    }
+
+    @media (max-width: 768px) {
+      .container {
+        padding: 1.5rem;
+      }
+      
+      header {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      
+      .header-actions {
+        width: 100%;
+        justify-content: space-between;
+      }
+      
+      h1 {
+        font-size: 1.75rem;
+      }
+    }
+
+    @media (max-width: 480px) {
+      .container {
+        padding: 1rem;
+      }
+      
+h1 {
+  font-size: 1.5rem;
+}
+
+      
+      .btn {
+        padding: 0.625rem 1.25rem;
+      }
+      
+      .card-container {
+        grid-template-columns: 1fr;
+      }
+      
+      .filter-controls {
+        gap: 0.5rem;
+      }
+      
+      .filter-btn {
+        padding: 0.5rem 1rem;
+        font-size: 0.8125rem;
+      }
+    }
+
+    /* Utility Classes */
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border-width: 0;
+    }
+
+    .hidden {
+      display: none !important;
+    }
+
+    /* Loading State */
+    .loading {
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      padding: 3rem;
+      grid-column: 1 / -1;
+    }
+
+    .spinner {
+      width: 3rem;
+      height: 3rem;
+      border: 3px solid rgba(79, 70, 229, 0.1);
+      border-radius: 50%;
+      border-top-color: var(--primary);
+      animation: spin 1s ease-in-out infinite;
+    }
+
+    @keyframes spin {
+      to { transform: rotate(360deg); }
+    }
+
+#peri-logo{
+font-family:monospace;
+}
+#sign-logo{
+color:#a9a9a9;
+}
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon"><i class="fas fa-file-pdf"></i></span>
+          <h1 id="peri-logo">Xrypthon <h1 id="sign-logo">- None ≠ Null</h1></h1>
+        </div>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="filter-btn">
+          <i class="fas fa-sliders-h"></i>
+          <span>Filters</span>
+        </button>
+        <button class="btn btn-primary" id="theme-toggle">
+          <i class="fas fa-moon"></i>
+          <span>Dark Mode</span>
+        </button>
+      </div>
+    </header>
+
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search PDF...." id="search-input">
+    </div>
+
+    <div class="filter-controls hidden" id="filter-controls">
+      <button class="filter-btn active" data-filter="all">All</button>
+      <button class="filter-btn" data-filter="literature">Literature</button>
+      <button class="filter-btn" data-filter="grammar">Grammar</button>
+      <button class="filter-btn" data-filter="drama">Drama</button>
+      <button class="filter-btn" data-filter="stories">Stories</button>
+    </div>
+
+    <div class="card-container" id="card-container">
+      <!-- Cards will be inserted here by JavaScript -->
+    </div>
+
+
+  </div>
+
+  <script>
+    // PDF data with your specific files
+    const pdfData = [
+      {
+        id: 1,
+        title: "साहित्य सागर",
+        description: "A collection of literary works and essays in Hindi literature.",
+        category: "literature",
+        file: "SAHITYA SAGAR.pdf",
+        size: "22.6 MB",
+        pages:56,
+        date: "2023-01-10",
+        featured: true
+      },
+      {
+        id: 2,
+        title: "Shakespeare's Julius Caesar",
+        description: "The complete play of Julius Caesar by William Shakespeare.",
+        category: "drama",
+        file: "SHAKESPEARE'S JULIUS CAESAR.pdf",
+        size: "9.79 MB",
+        pages: 16,
+        date: "2023-02-15"
+      },
+      {
+        id: 3,
+        title: "Treasure Chest",
+        description: "A collection of short stories and poems for English learners.",
+        category: "stories",
+        file: "TREASURE-CHEST.pdf",
+        size: "22.3 MB",
+        pages: 32,
+        date: "2023-03-20",
+        featured: true
+      },
+      {
+        id: 4,
+        title: "English Grammar",
+        description: "Comprehensive guide to English grammar rules and usage.",
+        category: "grammar",
+        file: "English Grammar.pdf",
+        size: "15.1 MB",
+        pages: 35,
+        date: "2023-04-05"
+      },
+      {
+        id: 5,
+        title: "एकांकी संचय",
+        description: "Collection of one-act plays in Hindi literature.",
+        category: "drama",
+        file: "EKANKI SANCHAY.pdf",
+        size: "20.6 MB",
+        pages: 48,
+        date: "2023-05-12"
+      }
+    ];
+
+    // DOM Elements
+    const cardContainer = document.getElementById('card-container');
+    const searchInput = document.getElementById('search-input');
+    const filterControls = document.getElementById('filter-controls');
+    const filterBtn = document.getElementById('filter-btn');
+    const themeToggle = document.getElementById('theme-toggle');
+    const filterBtns = document.querySelectorAll('.filter-btn');
+
+    // Current filter state
+    let currentFilter = 'all';
+    let currentSearch = '';
+
+    // Initialize the gallery
+    function initGallery() {
+      renderCards(pdfData);
+      setupEventListeners();
+      checkThemePreference();
+    }
+
+    // Render PDF cards
+    function renderCards(pdfs) {
+      cardContainer.innerHTML = '';
+      
+      if (pdfs.length === 0) {
+        cardContainer.innerHTML = `
+          <div class="empty-state">
+            <div class="empty-icon">
+              <i class="far fa-folder-open"></i>
+            </div>
+            <h3 class="empty-title">No documents found</h3>
+            <p class="empty-description">Try adjusting your search or filter criteria to find what you're looking for.</p>
+            <button class="btn btn-primary" id="reset-filters">
+              <i class="fas fa-undo"></i>
+              Reset filters
+            </button>
+          </div>
+        `;
+        
+        document.getElementById('reset-filters')?.addEventListener('click', () => {
+          searchInput.value = '';
+          currentSearch = '';
+          setActiveFilter('all');
+          filterCards();
+        });
+        return;
+      }
+
+      pdfs.forEach((pdf, index) => {
+        const card = document.createElement('div');
+        card.className = 'card';
+        card.style.animationDelay = `${index * 0.1}s`;
+        card.dataset.category = pdf.category;
+
+        card.innerHTML = `
+          <div class="card-preview" onclick="window.open('${pdf.file}', '_blank')">
+            ${pdf.featured ? '<span class="card-badge">Featured</span>' : ''}
+            <iframe src="${pdf.file}#toolbar=0&navpanes=0&view=fitH" loading="lazy"></iframe>
+          </div>
+          <div class="card-content">
+            <h3 class="card-title" onclick="window.open('${pdf.file}', '_blank')">${pdf.title}</h3>
+            <div class="card-meta">
+              <span class="card-meta-item">
+                <i class="fas fa-file-alt"></i>
+                ${pdf.pages} pages
+              </span>
+              <span class="card-meta-item">
+                <i class="fas fa-database"></i>
+                ${pdf.size}
+              </span>
+              <span class="card-meta-item">
+                <i class="fas fa-calendar-alt"></i>
+                ${new Date(pdf.date).toLocaleDateString()}
+              </span>
+            </div>
+            <p class="card-description">${pdf.description}</p>
+            <div class="card-actions">
+              <a href="${pdf.file}" class="download-link" download>
+                <i class="fas fa-download"></i>
+                Open in new Tab
+              </a>
+              <button class="action-btn" onclick="window.open('${pdf.file}', '_blank')">
+                <i class="fas fa-expand"></i>
+              </button>
+            </div>
+          </div>
+        `;
+
+        cardContainer.appendChild(card);
+      });
+    }
+
+    // Filter PDF cards based on current filter and search
+    function filterCards() {
+      let filteredPdfs = pdfData;
+
+      // Apply category filter
+      if (currentFilter !== 'all') {
+        filteredPdfs = filteredPdfs.filter(pdf => pdf.category === currentFilter);
+      }
+
+      // Apply search filter
+      if (currentSearch) {
+        const searchTerm = currentSearch.toLowerCase();
+        filteredPdfs = filteredPdfs.filter(pdf => 
+          pdf.title.toLowerCase().includes(searchTerm) || 
+          pdf.description.toLowerCase().includes(searchTerm)
+        );
+      }
+
+      renderCards(filteredPdfs);
+    }
+
+    // Set active filter button
+    function setActiveFilter(filter) {
+      currentFilter = filter;
+      filterBtns.forEach(btn => {
+        btn.classList.toggle('active', btn.dataset.filter === filter);
+      });
+    }
+
+    // Toggle dark/light theme
+    function toggleTheme() {
+      document.body.classList.toggle('dark');
+      const isDark = document.body.classList.contains('dark');
+      localStorage.setItem('darkMode', isDark);
+      themeToggle.innerHTML = isDark 
+        ? '<i class="fas fa-sun"></i><span>Light Mode</span>' 
+        : '<i class="fas fa-moon"></i><span>Dark Mode</span>';
+    }
+
+    // Check user's theme preference
+    function checkThemePreference() {
+      const prefersDark = window.matchMedia('(prefers-color-scheme: dark)').matches;
+      const savedMode = localStorage.getItem('darkMode');
+
+      if (savedMode === 'true' || (savedMode === null && prefersDark)) {
+        document.body.classList.add('dark');
+        themeToggle.innerHTML = '<i class="fas fa-sun"></i><span>Light Mode</span>';
+      }
+    }
+
+    // Set up event listeners
+    function setupEventListeners() {
+      // Search input
+      searchInput.addEventListener('input', (e) => {
+        currentSearch = e.target.value.trim();
+        filterCards();
+      });
+
+      // Filter buttons
+      filterBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+          setActiveFilter(btn.dataset.filter);
+          filterCards();
+        });
+      });
+
+      // Toggle filter controls
+      filterBtn.addEventListener('click', () => {
+        filterControls.classList.toggle('hidden');
+      });
+
+      // Theme toggle
+      themeToggle.addEventListener('click', toggleTheme);
+    }
+
+    // Initialize the gallery when DOM is loaded
+    document.addEventListener('DOMContentLoaded', initGallery);
+  </script>
+</body>
+</html>
