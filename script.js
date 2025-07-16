@@ -2,7 +2,7 @@
       {
         id: 1,
         title: "साहित्य सागर",
-        description: "Hindi ka kaam samapt kare varna **** ****ye",
+        description: "* _ * Hindi ",
         category: "literature",
         file: "SAHITYA SAGAR.pdf",
         size: "22.6 MB",
