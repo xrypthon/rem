@@ -237,3 +237,62 @@ document.addEventListener('DOMContentLoaded', function () {
     themeToggle.addEventListener('click', toggleTheme);
   }
 });
+
+async function uploadToGitHub(file, title, description, category) {
+  //harshit chutiya !
+ const repoOwner = 'xrypthon';
+const repoName = 'sfs'; 
+const branch = 'main'; 
+const folderPath = 'uploads/'; 
+const githubToken = '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'; // store safely!
+  
+  
+  const fileName = `${folderPath}${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
+  
+  
+  const fileContent = await readFileAsBase64(file);
+  
+  
+  const apiUrl = `https://api.github.com/repos/${repoOwner}/${repoName}/contents/${fileName}`;
+  
+  
+  const requestBody = {
+    message: `Upload ${title} - ${description}`,
+    content: fileContent,
+    branch: branch
+  };
+  
+ 
+  const response = await fetch(apiUrl, {
+    method: 'PUT',
+    headers: {
+      'Authorization': `token ${githubToken}`,
+      'Content-Type': 'application/json',
+      'Accept': 'application/vnd.github.v3+json'
+    },
+    body: JSON.stringify(requestBody)
+  });
+  
+  if (!response.ok) {
+    const errorData = await response.json();
+    throw new Error(errorData.message || 'Failed to upload to GitHub');
+  }
+  
+  const responseData = await response.json();
+  
+
+  return responseData.content.download_url;
+}
+
+function readFileAsBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => {
+     
+      const base64String = reader.result.split(',')[1];
+      resolve(base64String);
+    };
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
