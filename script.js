@@ -1,4 +1,4 @@
-document.addEventListener('DOMContentLoaded', function() {
+document.addEventListener('DOMContentLoaded', function () {
   const loginModal = document.getElementById('login-modal');
   const mainContent = document.getElementById('main-content');
   const passwordInput = document.getElementById('password-input');
@@ -19,11 +19,6 @@ document.addEventListener('DOMContentLoaded', function() {
     'student'
   ];
 
-  if(localStorage.getItem('pdfAccessGranted') === 'true') {
-    grantAccess();
-    return;
-  }
-
   function grantAccess() {
     loginModal.style.display = 'none';
     mainContent.style.display = 'block';
@@ -32,18 +27,17 @@ document.addEventListener('DOMContentLoaded', function() {
 
   loginBtn.addEventListener('click', tryLogin);
 
-  passwordInput.addEventListener('keypress', function(e) {
-    if(e.key === 'Enter') tryLogin();
+  passwordInput.addEventListener('keypress', function (e) {
+    if (e.key === 'Enter') tryLogin();
   });
 
   function tryLogin() {
     const enteredName = passwordInput.value.trim().toLowerCase();
-    
-    if(authorizedUsers.includes(enteredName)) {
-      localStorage.setItem('pdfAccessGranted', 'true');
+
+    if (authorizedUsers.includes(enteredName)) {
       grantAccess();
     } else {
-      loginError.textContent = 'Access denied. Try: vishnu, admin, na, etc.';
+      loginError.textContent = 'Access denied. ';
       passwordInput.focus();
     }
   }
@@ -56,7 +50,7 @@ document.addEventListener('DOMContentLoaded', function() {
       category: "literature",
       file: "SAHITYA SAGAR.pdf",
       size: "22.6 MB",
-      pages:56,
+      pages: 56,
       date: "2023-01-10",
       featured: true
     },
@@ -121,7 +115,7 @@ document.addEventListener('DOMContentLoaded', function() {
 
   function renderCards(pdfs) {
     cardContainer.innerHTML = '';
-    
+
     if (pdfs.length === 0) {
       cardContainer.innerHTML = `
         <div class="empty-state">
@@ -136,7 +130,7 @@ document.addEventListener('DOMContentLoaded', function() {
           </button>
         </div>
       `;
-      
+
       document.getElementById('reset-filters')?.addEventListener('click', () => {
         searchInput.value = '';
         currentSearch = '';
@@ -199,8 +193,8 @@ document.addEventListener('DOMContentLoaded', function() {
 
     if (currentSearch) {
       const searchTerm = currentSearch.toLowerCase();
-      filteredPdfs = filteredPdfs.filter(pdf => 
-        pdf.title.toLowerCase().includes(searchTerm) || 
+      filteredPdfs = filteredPdfs.filter(pdf =>
+        pdf.title.toLowerCase().includes(searchTerm) ||
         pdf.description.toLowerCase().includes(searchTerm)
       );
     }
@@ -219,8 +213,8 @@ document.addEventListener('DOMContentLoaded', function() {
     document.body.classList.toggle('dark');
     const isDark = document.body.classList.contains('dark');
     localStorage.setItem('darkMode', isDark);
-    themeToggle.innerHTML = isDark 
-      ? '<i class="fas fa-sun"></i><span>Light Mode</span>' 
+    themeToggle.innerHTML = isDark
+      ? '<i class="fas fa-sun"></i><span>Light Mode</span>'
       : '<i class="fas fa-moon"></i><span>Dark Mode</span>';
   }
 
