@@ -6,17 +6,14 @@ document.addEventListener('DOMContentLoaded', function () {
   const loginError = document.getElementById('login-error');
 
   const authorizedUsers = [
-    'vishnu',
-    'vishnukant',
-    'xrypthon',
-    'admin',
-    'na',
-    'sfs',
-    'ix',
-    'pdfmaster',
-    'teacher',
-    'principal',
-    'student'
+    'angel',
+    'abhishek',
+    'tapesh',
+    'soni',
+    'dhruv',
+    'aman',
+    'bhanesh',
+    'adarsh'
   ];
 
   function grantAccess() {
