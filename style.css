@@ -602,4 +602,89 @@ font-family:monospace;
 #sign-logo{
 color:#a9a9a9;
 }
+/* Upload Modal Styles */
+.upload-modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.7);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
 
+.upload-container {
+  background: var(--card-bg);
+  padding: 2rem;
+  border-radius: var(--rounded-2xl);
+  box-shadow: var(--shadow-xl);
+  width: 100%;
+  max-width: 500px;
+  position: relative;
+  border: 1px solid var(--card-border);
+}
+
+.close-btn {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  background: none;
+  border: none;
+  color: var(--text-secondary);
+  font-size: 1.25rem;
+  cursor: pointer;
+  transition: var(--transition);
+}
+
+.close-btn:hover {
+  color: var(--secondary);
+}
+
+.upload-container h2 {
+  margin-bottom: 1.5rem;
+  color: var(--text-primary);
+  text-align: center;
+}
+
+.form-group {
+  margin-bottom: 1.25rem;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 0.5rem;
+  color: var(--text-primary);
+  font-weight: 500;
+}
+
+.upload-input {
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border-radius: var(--rounded-lg);
+  border: 1px solid var(--card-border);
+  background: var(--bg-primary);
+  color: var(--text-primary);
+  font-size: 1rem;
+  transition: var(--transition);
+}
+
+.upload-input:focus {
+  outline: none;
+  border-color: var(--primary);
+  box-shadow: 0 0 0 3px rgba(79, 70, 229, 0.3);
+}
+
+.upload-status {
+  margin-top: 1rem;
+  color: var(--text-secondary);
+  text-align: center;
+  min-height: 1.5rem;
+}
+
+#submit-upload {
+  width: 100%;
+  margin-top: 1rem;
+}
