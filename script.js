@@ -342,7 +342,7 @@ document.addEventListener('DOMContentLoaded', function () {
 async function uploadToGitHub(file, title, description, category) {
   //harshit chutiya !
  const repoOwner = 'xrypthon';
-const repoName = 'sfs'; 
+const repoName = 'rem'; 
 const branch = 'main'; 
 const folderPath = 'uploads/'; 
 const githubToken = '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'; // store safely!
