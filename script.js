@@ -6,14 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const loginError = document.getElementById('login-error');
 
   const authorizedUsers = [
-    'angle',
-    'abhishek',
-    'tapesh',
-    'soni',
-    'dhruv',
-    'aman',
-    'bhanesh',
-    'adarsh'
+    'angle', 'abhishek', 'tapesh', 'soni', 'dhruv', 'aman', 'bhanesh', 'adarsh'
   ];
 
   function grantAccess() {
@@ -30,11 +23,10 @@ document.addEventListener('DOMContentLoaded', function () {
 
   function tryLogin() {
     const enteredName = passwordInput.value.trim().toLowerCase();
-
     if (authorizedUsers.includes(enteredName)) {
       grantAccess();
     } else {
-      loginError.textContent = 'Access denied. ';
+      loginError.textContent = 'Access denied.';
       passwordInput.focus();
     }
   }
@@ -166,8 +158,8 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
           <p class="card-description">${pdf.description}</p>
           <div class="card-actions">
-            <a href="${pdf.file}#toolbar=0&navpanes=0&view=fitH" class="download-link" download> voshnu
-              <i class="fas fa-download"></i>
+            <a href="${pdf.file}#toolbar=0&navpanes=0&view=fitH" class="download-link" target="_blank" rel="noopener noreferrer">
+              <i class="fas fa-external-link-alt"></i>
               Open in new Tab
             </a>
             <button class="action-btn" onclick="window.open('${pdf.file}#toolbar=0&navpanes=0&view=fitH', '_blank')">
