@@ -1,403 +1,58 @@
-<!DOCTYPE html>
+<meta name='viewport' content='width=device-width, initial-scale=1'/><!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Pdf - Xrypthon</title>
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-  <style>
-  
-    :root {
-      --primary: #6c5ce7;
-      --secondary: #00cec9;
-      --dark: #2d3436;
-      --light: #f5f6fa;
-      --gray: #636e72;
-    }
-    
-    * {
-      margin: 0;
-      padding: 0;
-      box-sizing: border-box;
-    }
-    
-    body {
-      font-family: 'Poppins', sans-serif;
-      background-color: var(--light);
-      color: var(--dark);
-      height: 100vh;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      overflow: hidden;
-      position: relative;
-    }
-    
-    
-    .bg-animation {
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 100%;
-      z-index: -1;
-      background: linear-gradient(135deg, rgba(108, 92, 231, 0.1) 0%, rgba(0, 206, 201, 0.1) 100%);
-    }
-    
-    .circle {
-      position: absolute;
-      border-radius: 50%;
-      background: rgba(108, 92, 231, 0.1);
-      animation: float 15s infinite ease-in-out;
-    }
-    
-    .circle:nth-child(1) {
-      width: 300px;
-      height: 300px;
-      top: -100px;
-      left: -100px;
-      animation-delay: 0s;
-    }
-    
-    .circle:nth-child(2) {
-      width: 200px;
-      height: 200px;
-      bottom: -50px;
-      right: -50px;
-      animation-delay: 2s;
-    }
-    
-    .circle:nth-child(3) {
-      width: 150px;
-      height: 150px;
-      top: 30%;
-      right: 10%;
-      animation-delay: 4s;
-    }
-    
-    @keyframes float {
-      0%, 100% {
-        transform: translate(0, 0);
-      }
-      50% {
-        transform: translate(20px, 20px);
-      }
-    }
-    
-    
-    .container {
-      text-align: center;
-      max-width: 800px;
-      padding: 40px;
-      background-color: rgba(255, 255, 255, 0.9);
-      border-radius: 20px;
-      box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
-      position: relative;
-      overflow: hidden;
-      z-index: 1;
-    }
-    
-    .container::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-    }
-    
-    h1 {
-      font-size: 3rem;
-      margin-bottom: 20px;
-      color: var(--primary);
-      position: relative;
-      display: inline-block;
-    }
-    
-    h1::after {
-      content: '';
-      position: absolute;
-      bottom: -5px;
-      left: 0;
-      width: 100%;
-      height: 3px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      transform: scaleX(0);
-      transform-origin: right;
-      animation: underline 2s infinite alternate;
-    }
-    
-    @keyframes underline {
-      to {
-        transform: scaleX(1);
-        transform-origin: left;
-      }
-    }
-    
-    p {
-      font-size: 1.2rem;
-      margin-bottom: 30px;
-      color: var(--gray);
-    }
-    
-    .highlight {
-      font-weight: 600;
-      color: var(--primary);
-      background: rgba(108, 92, 231, 0.1);
-      padding: 2px 8px;
-      border-radius: 5px;
-    }
-    
-  
-    .countdown {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin: 40px 0;
-    }
-    
-    .countdown-item {
-      background: white;
-      border-radius: 10px;
-      padding: 20px;
-      min-width: 100px;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      position: relative;
-      overflow: hidden;
-    }
-    
-    .countdown-item::before {
-      content: '';
-      position: absolute;
-      top: 0;
-      left: 0;
-      width: 100%;
-      height: 5px;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-    }
-    
-    .countdown-number {
-      font-size: 3rem;
-      font-weight: 700;
-      color: var(--primary);
-      margin-bottom: 5px;
-    }
-    
-    .countdown-label {
-      font-size: 0.9rem;
-      color: var(--gray);
-      text-transform: uppercase;
-      letter-spacing: 1px;
-    }
-    
-    
-    .progress-container {
-      width: 100%;
-      height: 10px;
-      background: #f0f0f0;
-      border-radius: 5px;
-      margin: 30px 0;
-      overflow: hidden;
-    }
-    
-    .progress-bar {
-      height: 100%;
-      background: linear-gradient(90deg, var(--primary), var(--secondary));
-      border-radius: 5px;
-      width: 0%;
-      animation: progress 60s linear infinite;
-    }
-    
-    @keyframes progress {
-      0% {
-        width: 0%;
-      }
-      100% {
-        width: 100%;
-      }
-    }
-    
-    /* Social Icons */
-    .social-icons {
-      display: flex;
-      justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    
-    .social-icon {
-      width: 50px;
-      height: 50px;
-      border-radius: 50%;
-      background: white;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: var(--primary);
-      font-size: 1.5rem;
-      box-shadow: 0 5px 15px rgba(0, 0, 0, 0.05);
-      transition: all 0.3s ease;
-    }
-    
-    .social-icon:hover {
-      transform: translateY(-5px);
-      color: white;
-      background: linear-gradient(135deg, var(--primary), var(--secondary));
-      box-shadow: 0 10px 20px rgba(108, 92, 231, 0.3);
-    }
-    
-    /* Responsive */
-    @media (max-width: 768px) {
-      .container {
-        padding: 30px 20px;
-        margin: 20px;
-      }
-      
-      h1 {
-        font-size: 2rem;
-      }
-      
-      p {
-        font-size: 1rem;
-      }
-      
-      .countdown {
-        gap: 10px;
-      }
-      
-      .countdown-item {
-        min-width: 80px;
-        padding: 15px 10px;
-      }
-      
-      .countdown-number {
-        font-size: 2rem;
-      }
-    }
-    
-    /* Construction Icon */
-    .construction-icon {
-      font-size: 4rem;
-      color: var(--primary);
-      margin-bottom: 20px;
-      animation: bounce 2s infinite;
-    }
-    
-    @keyframes bounce {
-      0%, 100% {
-        transform: translateY(0);
-      }
-      50% {
-        transform: translateY(-20px);
-      }
-    }
-  </style>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <meta name="description" content="SFS IX Grade all pdf site ">
+  <title>PDF viewer - Xrypthon</title>
+<link rel="icon" type="image/x-icon" href="xrypthon_logo.ico">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Comfortaa:wght@300..700&family=Ubuntu:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <div class="bg-animation">
-    <div class="circle"></div>
-    <div class="circle"></div>
-    <div class="circle"></div>
-  </div>
-  
   <div class="container">
-    <div class="construction-icon">
-      <i class="fas fa-hard-hat"></i>
-    </div>
-    <h1>Under working</h1>
-    <p>Site is in under progress it will <span class="highlight">live at 8:02 PM</span>.</p>
-    
-    <div class="progress-container">
-      <div class="progress-bar"></div>
-    </div>
-    
-    <div class="countdown" id="countdown">
-      <div class="countdown-item">
-        <div class="countdown-number" id="hours">00</div>
-        <div class="countdown-label">Hours</div>
+    <header>
+      <div class="header-content">
+        <div class="logo">
+          <span class="logo-icon"><i class="fas fa-file-pdf"></i></span>
+          <h1 id="peri-logo">Xryothon <h1 id="sign-logo">- None ≠ Null</h1></h1>
+        </div>
       </div>
-      <div class="countdown-item">
-        <div class="countdown-number" id="minutes">00</div>
-        <div class="countdown-label">Minutes</div>
+      <div class="header-actions">
+        <button class="btn btn-secondary" id="filter-btn">
+          <i class="fas fa-sliders-h"></i>
+          <span>Filters</span>
+        </button>
+        <button class="btn btn-primary" id="theme-toggle">
+          <i class="fas fa-moon"></i>
+          <span>Dark Mode</span>
+        </button>
       </div>
-      <div class="countdown-item">
-        <div class="countdown-number" id="seconds">00</div>
-        <div class="countdown-label">Seconds</div>
-      </div>
+    </header>
+
+    <div class="search-container">
+      <i class="fas fa-search search-icon"></i>
+      <input type="text" class="search-input" placeholder="Search PDF...." id="search-input">
     </div>
-    
-    
-  
+
+    <div class="filter-controls hidden" id="filter-controls">
+      <button class="filter-btn active" data-filter="all">All sections</button>
+      <button class="filter-btn" data-filter="literature">Literature</button>
+      <button class="filter-btn" data-filter="grammar">Grammar</button>
+      <button class="filter-btn" data-filter="drama">Drama</button>
+      <button class="filter-btn" data-filter="stories">Stories</button>
+    </div>
+
+    <div class="card-container" id="card-container">
+    </div>
+
+
   </div>
 
-  <script>
-    function getLaunchTime() {
-      const now = new Date();
-      const launch = new Date();
-      
-      // 8 baje ka time 
-      launch.setHours(20, 2, 0, 0);
-      
-     
-      if (now > launch) {
-        launch.setDate(launch.getDate() + 1);
-      }
-      
-      return launch;
-    }
-    
-    const launchTime = getLaunchTime();
-    
-    
-    function updateCountdown() {
-      const now = new Date();
-      const diff = launchTime - now;
-      
-            const hours = Math.floor(diff / (1000 * 60 * 60));
-      const minutes = Math.floor((diff % (1000 * 60 * 60)) / (1000 * 60));
-      const seconds = Math.floor((diff % (1000 * 60)) / 1000);
-      
-      document.getElementById('hours').textContent = String(hours).padStart(2, '0');
-      document.getElementById('minutes').textContent = String(minutes).padStart(2, '0');
-      document.getElementById('seconds').textContent = String(seconds).padStart(2, '0');
-      
-      
-      if (diff < 0) {
-        clearInterval(countdownInterval);
-        document.getElementById('countdown').innerHTML = '<div class="launch-message">We\'re live! Refresh the page.</div>';
-      }
-    }
-    
-    
-    updateCountdown();
-    
-   
-    const countdownInterval = setInterval(updateCountdown, 1000);
-    
-     function animateProgressBar() {
-      const now = new Date();
-      const todayStart = new Date();
-      todayStart.setHours(0, 0, 0, 0);
-      
-      const launchToday = new Date();
-      launchToday.setHours(20, 2, 0, 0);
-      
-     
-      const totalDay = launchToday - todayStart;
-      const elapsed = now - todayStart;
-      let percentage = (elapsed / totalDay) * 100;
-
-      
-      percentage = Math.max(0, Math.min(100, percentage));
-      
-      document.querySelector('.progress-bar').style.width = `${percentage}%`;
-    }
-  
-    animateProgressBar();
-    
-    setInterval(animateProgressBar, 60000);
-  </script>
+ <script src="script.js"></script>
 </body>
 </html>
