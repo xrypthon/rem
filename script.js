@@ -144,12 +144,12 @@ document.addEventListener('DOMContentLoaded', function () {
       card.dataset.category = pdf.category;
 
       card.innerHTML = `
-        <div class="card-preview" onclick="window.open('${pdf.file}', '_blank')">
+        <div class="card-preview" onclick="window.open('${pdf.file}#toolbar=0&navpanes=0&view=fitH', '_blank')">
           ${pdf.featured ? '<span class="card-badge">Featured</span>' : ''}
           <iframe src="${pdf.file}#toolbar=0&navpanes=0&view=fitH" loading="lazy"></iframe>
         </div>
         <div class="card-content">
-          <h3 class="card-title" onclick="window.open('${pdf.file}', '_blank')">${pdf.title}</h3>
+          <h3 class="card-title" onclick="window.open('${pdf.file}#toolbar=0&navpanes=0&view=fitH', '_blank')">${pdf.title}</h3>
           <div class="card-meta">
             <span class="card-meta-item">
               <i class="fas fa-file-alt"></i>
@@ -166,11 +166,11 @@ document.addEventListener('DOMContentLoaded', function () {
           </div>
           <p class="card-description">${pdf.description}</p>
           <div class="card-actions">
-            <a href="${pdf.file}" class="download-link" download>
+            <a href="${pdf.file}#toolbar=0&navpanes=0&view=fitH" class="download-link" download> voshnu
               <i class="fas fa-download"></i>
               Open in new Tab
             </a>
-            <button class="action-btn" onclick="window.open('${pdf.file}', '_blank')">
+            <button class="action-btn" onclick="window.open('${pdf.file}#toolbar=0&navpanes=0&view=fitH', '_blank')">
               <i class="fas fa-expand"></i>
             </button>
           </div>
