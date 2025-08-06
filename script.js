@@ -1,4 +1,55 @@
-    const pdfData = [
+
+document.addEventListener('DOMContentLoaded', function() {
+  const loginModal = document.getElementById('login-modal');
+  const mainContent = document.getElementById('main-content');
+  const passwordInput = document.getElementById('password-input');
+  const loginBtn = document.getElementById('login-btn');
+  
+  
+  const authorizedUsers = [
+    'vishnu',       // Original author
+    'vishnukant',   // Full name variant
+    'xrypthon',     // Project name
+    'admin',        // Generic admin
+    'na',           // Name you mentioned
+    'sfs',          // School abbreviation
+    'ix',           // Grade identifier
+    'pdfmaster'     // Fun alternate
+  ];
+
+  
+  if(localStorage.getItem('pdfAccessGranted') === 'true') {
+    loginModal.style.display = 'none';
+    mainContent.style.display = 'block';
+    initGallery(); 
+    return;
+  }
+
+  
+  loginBtn.addEventListener('click', function() {
+    const enteredName = passwordInput.value.trim().toLowerCase();
+    
+    
+    if(authorizedUsers.includes(enteredName)) {
+      localStorage.setItem('pdfAccessGranted', 'true');
+      loginModal.style.display = 'none';
+      mainContent.style.display = 'block';
+      initGallery(); 
+    } else {
+      alert('Access denied. Please try another name or contact the administrator.');
+      passwordInput.value = '';
+      passwordInput.focus();
+    }
+  });
+
+
+  passwordInput.addEventListener('keypress', function(e) {
+    if(e.key === 'Enter') {
+      loginBtn.click();
+    }
+  });
+});
+const pdfData = [
       {
         id: 1,
         title: "साहित्य सागर",
