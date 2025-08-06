@@ -6,7 +6,7 @@ document.addEventListener('DOMContentLoaded', function () {
   const loginError = document.getElementById('login-error');
 
   const authorizedUsers = [
-    'angel',
+    'angle',
     'abhishek',
     'tapesh',
     'soni',
