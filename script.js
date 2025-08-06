@@ -1,3 +1,104 @@
+
+const uploadBtn = document.getElementById('upload-btn');
+const uploadModal = document.getElementById('upload-modal');
+const closeUpload = document.getElementById('close-upload');
+const uploadForm = document.getElementById('upload-form');
+const uploadStatus = document.getElementById('upload-status');
+
+
+uploadBtn.addEventListener('click', () => {
+  uploadModal.classList.remove('hidden');
+});
+
+closeUpload.addEventListener('click', () => {
+  uploadModal.classList.add('hidden');
+  uploadStatus.textContent = '';
+});
+
+
+async function handleFileUpload(event) {
+  event.preventDefault();
+  
+  const title = document.getElementById('file-title').value;
+  const description = document.getElementById('file-description').value;
+  const category = document.getElementById('file-category').value;
+  const fileInput = document.getElementById('file-upload');
+  const file = fileInput.files[0];
+  
+  if (!file) {
+    uploadStatus.textContent = 'Please select a file to upload';
+    uploadStatus.style.color = 'var(--secondary)';
+    return;
+  }
+  
+  
+  if (file.type !== 'application/pdf') {
+    uploadStatus.textContent = 'Only PDF files are allowed';
+    uploadStatus.style.color = 'var(--secondary)';
+    return;
+  }
+  
+  
+  if (file.size > 50 * 1024 * 1024) {
+    uploadStatus.textContent = 'File size must be less than 50MB';
+    uploadStatus.style.color = 'var(--secondary)';
+    return;
+  }
+  
+  uploadStatus.textContent = 'Uploading file...';
+  uploadStatus.style.color = 'var(--text-primary)';
+  
+  try {
+  
+    const uploadedFileUrl = await uploadToGitHub(file, title, description, category);
+    
+    
+    const newFile = {
+      id: pdfData.length + 1,
+      title: title,
+      description: description,
+      category: category,
+      file: uploadedFileUrl,
+      size: formatFileSize(file.size),
+      pages: 'Unknown', 
+      date: new Date().toISOString().split('T')[0],
+      featured: false
+    };
+    
+    pdfData.push(newFile);
+    
+    
+    filterCards();
+    
+    
+    uploadForm.reset();
+    uploadStatus.textContent = 'File uploaded successfully!';
+    uploadStatus.style.color = 'var(--accent)';
+    
+    // Close the modal after 2 seconds
+    setTimeout(() => {
+      uploadModal.classList.add('hidden');
+      uploadStatus.textContent = '';
+    }, 2000);
+    
+  } catch (error) {
+    console.error('Upload failed:', error);
+    uploadStatus.textContent = 'Upload failed: ' + error.message;
+    uploadStatus.style.color = 'var(--secondary)';
+  }
+}
+
+
+function formatFileSize(bytes) {
+  if (bytes === 0) return '0 Bytes';
+  const k = 1024;
+  const sizes = ['Bytes', 'KB', 'MB', 'GB'];
+  const i = Math.floor(Math.log(bytes) / Math.log(k));
+  return parseFloat((bytes / Math.pow(k, i)).toFixed(1)) + ' ' + sizes[i];
+}
+
+// Add this event listener in your setupEventListeners function
+uploadForm.addEventListener('submit', handleFileUpload);
 document.addEventListener('DOMContentLoaded', function () {
   const loginModal = document.getElementById('login-modal');
   const mainContent = document.getElementById('main-content');
