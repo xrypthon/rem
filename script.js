@@ -345,7 +345,8 @@ async function uploadToGitHub(file, title, description, category) {
 const repoName = 'rem'; 
 const branch = 'main'; 
 const folderPath = 'uploads/'; 
-const githubToken = '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'; // store safely!
+const githubToken = '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';
+//   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
   
   
   const fileName = `${folderPath}${Date.now()}_${file.name.replace(/[^a-zA-Z0-9._-]/g, '_')}`;
