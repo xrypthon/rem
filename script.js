@@ -377,7 +377,7 @@ const githubToken = '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';
   
   if (!response.ok) {
     const errorData = await response.json();
-    throw new Error(errorData.message || 'Failed to upload to GitHub');
+    throw new Error('This feature currently unavailable so be patient !');
   }
   
   const responseData = await response.json();
